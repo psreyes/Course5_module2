@@ -1,0 +1,78 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <title>Shopping List Check Off</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <script src="angular.min.js"></script>
+    <script src="app.js"></script>
+    <link rel="stylesheet" href="styles/bootstrap.min.css">
+    <style>
+      .emptyMessage {
+        font-weight: bold;
+        color: red;
+        font-size: 1.2em;
+      }
+      li {
+        margin-bottom: 7px;
+        font-size: 1.2em;
+      }
+      li > button {
+        margin-left: 6px;
+      }
+      
+
+      button:checked > span {
+        color: green;
+      }
+
+      button > span {
+        color: white;
+      }
+
+      
+    </style>
+  </head>
+<body ng-app='ShoppingListCheckOff'>
+  <div class="container">
+  <h1>Shopping List Check Off</h1>
+
+  <div class="row">
+
+    <div ng-controller='ToBuyController as buylist'>
+
+    <!-- To Buy List -->
+    <div class="col-md-6">
+     <h2>To Buy:</h2>
+     <ul>
+       <li>Buy 10 cookies <button ng-click='buylist.clicker(10, "cookies", $index, id=0)'  class="btn btn-default"><span class="glyphicon glyphicon-ok" id="btn0"></span>{{buylist.label[0]}}</button></li>
+       <li>Buy 2 soap dish <button ng-click='buylist.clicker(4, "soap dish", $index, id=1)' class="btn btn-default"><span class="glyphicon glyphicon-ok" id="btn1"></span>{{buylist.label[1]}}</button></li>
+       <li>Buy 2 t-shirt <button ng-click='buylist.clicker(2, "shirt", $index, id=2)' class="btn btn-default"><span class="glyphicon glyphicon-ok" id="btn2"></span> {{buylist.label[2]}} </button></li>
+       <li>Buy 4 bowls <button ng-click='buylist.clicker(4, "bowls", $index, id=3)' class="btn btn-default"><span class="glyphicon glyphicon-ok" id="btn3"></span> {{buylist.label[3]}}</button></li>
+       <li>Buy 4 tiles <button ng-click='buylist.clicker(4, "tiles", $index, id=4)' class="btn btn-default"><span class="glyphicon glyphicon-ok" id="btn4"></span> {{buylist.label[4]}}</button></li>
+     </ul>
+     <ol>
+       <li ng-repeat="item in buylist.Items2Shop">{{item.quantity}} of {{item.name}}
+
+       </li>
+       <div ng-model="buylist.Items2Shop"></div>
+     </ol>
+     <div ng-if="buylist.Items2Shop.length == 0" class="emptyMessage">Everything is bought!</div>
+    </div>
+  </div>
+
+    <div ng-controller='AlreadyBoughtController as boughtlist'>
+
+    <!-- Already Bought List -->
+    <div class="col-md-6">
+     <h2>Already Bought:</h2>
+     <ul>
+       <li ng-repeat="item in boughtlist.boughtItems">{{item.quantity}} of {{item.name}}</li>
+     </ul>
+     <div ng-if="boughtlist.boughtItems.length == 0" class="emptyMessage">Nothing bought yet.</div>
+    </div>
+  </div>
+  </div>
+</div>
+
+</body>
+</html>
